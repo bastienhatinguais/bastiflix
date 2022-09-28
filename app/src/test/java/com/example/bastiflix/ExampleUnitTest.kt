@@ -1,4 +1,4 @@
-package com.example.mapremiereapplication
+package com.example.bastiflix
 
 import org.junit.Test
 

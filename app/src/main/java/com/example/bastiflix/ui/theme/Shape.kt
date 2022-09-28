@@ -1,4 +1,4 @@
-package com.example.mapremiereapplication.ui.theme
+package com.example.bastiflix.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
