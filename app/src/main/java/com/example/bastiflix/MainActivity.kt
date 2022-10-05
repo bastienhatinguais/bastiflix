@@ -12,10 +12,13 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import com.example.bastiflix.ui.theme.MapremiereapplicationTheme
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.bastiflix.pages.*
 
 class MainActivity : ComponentActivity() {
@@ -29,10 +32,6 @@ class MainActivity : ComponentActivity() {
                 val windowSizeClass = calculateWindowSizeClass(this)
                 val navController = rememberNavController()
                 Surface(color = MaterialTheme.colors.background) {
-                    val navController = rememberNavController()
-                    Scaffold(
-                        bottomBar = { BottomNavigationBar(navController) }
-                    ) {
                         NavHost(
                             navController = navController,
                             startDestination = "accueil") {
@@ -40,16 +39,16 @@ class MainActivity : ComponentActivity() {
                                 Accueil(navController, windowSizeClass)
                             }
                             composable(BottomNavItem.Films.route) {
-                                    Films(navController);
-
+                                NavigationLayout(){Films(navController)};
                             }
                             composable(BottomNavItem.Series.route) {
-                                    Series(navController);
-
+                                NavigationLayout(){Series(navController)};
                             }
                             composable(BottomNavItem.Acteurs.route) {
-                                    Acteurs(navController);
-
+                                NavigationLayout(){Acteurs(navController)};
+                            }
+                            composable("film/{id}"){navBackStackEntry ->
+                                FilmDetail(id = navBackStackEntry.arguments?.getString("id"))
                             }
                         }                    }
                 }
@@ -59,7 +58,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun BootstrapBottomBar(content: @Composable() () -> Unit){
+    fun NavigationLayout(content: @Composable() () -> Unit){
         Surface(color = MaterialTheme.colors.background) {
             val navController = rememberNavController()
             Scaffold(
@@ -69,4 +68,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
+
+
+
