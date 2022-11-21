@@ -4,10 +4,11 @@ import android.media.Image
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,36 +26,30 @@ import com.example.bastiflix.model.ItemGrid
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun LazyVerticalGridDemo(items: List<ItemGrid>, navController: NavHostController?){
-    val list = (1..10).map { it.toString() }
-
-    LazyVerticalGrid(
-        GridCells.Adaptive(128.dp),
-        content = {
-            items(items.size) { i ->
-                Card(
-                    modifier = Modifier
-                        .padding(top = 8.dp, start = 4.dp, end = 4.dp)
-                        .fillMaxSize(),
-                    elevation = 8.dp,
-                    onClick = {
-                        navController?.navigate("film/" + items[i].id)
-                    }
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(items[i].imageURL),
-                        contentDescription = null,
-                        modifier = Modifier.size(height = 128.dp, width = 70.dp)
-                    )
-                    Text(
-                        text = items[i].titre,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 10.sp,
-                        color = Color.Black,
-                        textAlign = TextAlign.Center
-                    )
+fun LazyVerticalGridDemo(items: List<ItemGrid>, navController: NavHostController?, modifier: Modifier?) {
+        LazyVerticalGrid(
+            GridCells.Adaptive(100.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            modifier = modifier!!,
+            content = {
+                items(items.size) { i ->
+                    GridCard(item = items[i], navController = navController)
                 }
             }
-        }
-    )
+        )
+}
+
+@Composable
+fun LazyVerticalGridDemo(items: List<ItemGrid>, navController: NavHostController?) {
+        LazyVerticalGrid(
+            GridCells.Adaptive(100.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            content = {
+                items(items.size) { i ->
+                    GridCard(item = items[i], navController = navController)
+                }
+            }
+        )
 }

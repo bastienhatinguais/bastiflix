@@ -1,11 +1,11 @@
 package com.example.bastiflix
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import android.content.res.Resources
+import androidx.compose.foundation.background
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -14,9 +14,9 @@ fun BottomNavigationBar(
     navController: NavController
 ) {
     val items = listOf(
-        BottomNavItem.Films,
+        BottomNavItem.Movies,
         BottomNavItem.Series,
-        BottomNavItem.Acteurs
+        BottomNavItem.Peoples
     )
 
     BottomNavigation {
@@ -24,6 +24,7 @@ fun BottomNavigationBar(
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
             BottomNavigationItem(
+                modifier = Modifier.background(MaterialTheme.colors.primary),
                 icon = {
                     Icon(
                         imageVector = item.icon,

@@ -28,19 +28,19 @@ import com.example.bastiflix.model.ItemGrid
 import java.lang.Error
 
 @Composable
-fun Films(navController: NavHostController) {
+fun Peoples(navController: NavHostController) {
     val viewModel: MainViewModel = viewModel();
-    val movies by viewModel.movies.collectAsState()
-    if(movies.isEmpty()){
-        viewModel.getMovies();
+    val peoples by viewModel.peoples.collectAsState()
+    if (peoples.isEmpty()) {
+        viewModel.getPeoples();
         Spinner();
-    }
-else {
-        LazyVerticalGridDemo(movies.map {
+    } else {
+        LazyVerticalGridDemo(peoples.map {
             ItemGrid(
-                titre = it.title,
-                imageURL = "https://image.tmdb.org/t/p/w500" + it.poster_path,
-                id = it.id
+                titre = it.name,
+                imageURL = it.profile_path,
+                id = it.id,
+                route = "people"
             )
         }, navController = navController)
     }
